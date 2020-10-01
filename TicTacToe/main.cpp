@@ -1,8 +1,12 @@
 #include "GameManager.h"
+#include "SpriteManager.h"
+#include "Managers.h"
+#include "Enums.h"
 
 int main(int argc, char* argv[])
 {
-	GameManager* gameManager = new GameManager();
+	GameManager* gameManager = new GameManager(ManagerName::GAMEMANAGER);
+	Managers::GetInstance()->AddManager(gameManager);
 
 	gameManager->Start();
 

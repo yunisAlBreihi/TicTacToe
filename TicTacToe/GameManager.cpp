@@ -1,16 +1,34 @@
 #include "GameManager.h"
-#include "SDL_image.h"
+#include <iostream>
+#include <SDL_image.h>
+#include "Managers.h"
+#include "Sprite.h"
+#include "Symbol.h"
 
-GameManager::GameManager()
+GameManager::GameManager(ManagerName) : ManagerBase(name)
 {
 	CreateWindow();
+	Managers::GetInstance()->SetRenderer(renderer);
 
-	//TODO: Remove these when creating palyer class
-	circleSurface = IMG_Load("sprites\\Circle.png");
-	circleTexture = SDL_CreateTextureFromSurface(renderer, circleSurface);
+	//Create managers
+	spriteManager = new SpriteManager(ManagerName::SPRITEMANAGER);
+	symbolManager = new SymbolManager(ManagerName::SYMBOLMANAGER);
 
-	crossSurface = IMG_Load("sprites\\Cross.png");
-	crossTexture = SDL_CreateTextureFromSurface(renderer, crossSurface);
+	Managers::GetInstance()->AddManager(spriteManager);
+	Managers::GetInstance()->AddManager(symbolManager);
+
+
+	Sprite* circleSprite = new Sprite("Circle", "sprites\\Circle.png");
+	Sprite* crossSprite = new Sprite("Cross", "sprites\\Cross.png");
+
+	spriteManager->AddObject(circleSprite);
+	spriteManager->AddObject(crossSprite);
+
+	Symbol* circleSymbol = new Symbol(circleSprite, "Circle", Vector2D{ 0,0 }, Vector2D{ 64,64 });
+	Symbol* crossSymbol = new Symbol(crossSprite, "Cross", Vector2D{ 64,0 }, Vector2D{ 64,64 });
+
+	symbolManager->AddObject(circleSymbol);
+	symbolManager->AddObject(crossSymbol);
 }
 
 void GameManager::Start()
@@ -26,35 +44,30 @@ void GameManager::EventHandler()
 		{
 			gameRunning = false;
 		}
+		else if (event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			std::cout << "Hello!" << std::endl;
+		}
 	}
 }
 
 void GameManager::Update()
 {
+
 }
 
 void GameManager::Render()
 {
-	SDL_RenderClear(renderer);
+	//SDL_RenderClear(renderer);
 
-	SDL_RenderCopy(renderer, circleTexture, NULL, &circleRect);
-	SDL_RenderCopy(renderer, crossTexture, NULL, &crossRect);
+	DrawBoard();
+	symbolManager->Render();
 
 	SDL_RenderPresent(renderer);
 }
 
 void GameManager::Quit()
 {
-	SDL_DestroyTexture(circleTexture);
-	circleTexture = nullptr;
-	SDL_DestroyTexture(crossTexture);
-	crossTexture = nullptr;
-
-	SDL_FreeSurface(circleSurface);
-	circleSurface = nullptr;
-	SDL_FreeSurface(crossSurface);
-	crossSurface = nullptr;
-
 	SDL_DestroyRenderer(renderer);
 	renderer = nullptr;
 
@@ -62,6 +75,21 @@ void GameManager::Quit()
 	window = nullptr;
 
 	SDL_Quit();
+}
+
+void GameManager::DrawBoard()
+{
+	if (boardIsDrawn == false)
+	{
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderDrawLine(renderer, 64, 0, 64, 192);
+		SDL_RenderDrawLine(renderer, 128, 0, 128, 192);
+		SDL_RenderDrawLine(renderer, 0, 64, 192, 64);
+		SDL_RenderDrawLine(renderer, 0, 128, 192, 128);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+		boardIsDrawn = true;
+	}
+
 }
 
 void GameManager::CreateWindow()

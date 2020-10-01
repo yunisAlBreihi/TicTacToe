@@ -141,12 +141,28 @@
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ManagerBase.cpp" />
+    <ClCompile Include="Managers.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="Symbol.cpp" />
+    <ClCompile Include="SymbolManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="IRender.h" />
+    <ClInclude Include="ManagerBase.h" />
+    <ClInclude Include="Managers.h" />
+    <ClInclude Include="ObjectBase.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="Symbol.h" />
+    <ClInclude Include="SymbolManager.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
