@@ -4,6 +4,9 @@
 #include "Managers.h"
 #include "Sprite.h"
 #include "Symbol.h"
+#include "globals.h"
+
+using namespace globals;
 
 GameManager::GameManager(ManagerName) : ManagerBase(name)
 {
@@ -24,11 +27,13 @@ GameManager::GameManager(ManagerName) : ManagerBase(name)
 	spriteManager->AddObject(circleSprite);
 	spriteManager->AddObject(crossSprite);
 
-	Symbol* circleSymbol = new Symbol(circleSprite, "Circle", Vector2D{ 0,0 }, Vector2D{ 64,64 });
-	Symbol* crossSymbol = new Symbol(crossSprite, "Cross", Vector2D{ 64,0 }, Vector2D{ 64,64 });
+	//Symbol* circleSymbol = new Symbol(circleSprite, "Circle", Vector2D{ 0,0 }, Vector2D{ 64,64 });
+	//Symbol* crossSymbol = new Symbol(crossSprite, "Cross", Vector2D{ 64,0 }, Vector2D{ 64,64 });
 
-	symbolManager->AddObject(circleSymbol);
-	symbolManager->AddObject(crossSymbol);
+	//symbolManager->AddObject(circleSymbol);
+	//symbolManager->AddObject(crossSymbol);
+
+	gameBoard = new GameBoard();
 }
 
 void GameManager::Start()
@@ -38,15 +43,19 @@ void GameManager::Start()
 
 void GameManager::EventHandler()
 {
+	int x, y;
+
 	if (SDL_PollEvent(&event) != 0)
 	{
 		if (event.type == SDL_QUIT)
 		{
 			gameRunning = false;
 		}
-		else if (event.type == SDL_MOUSEBUTTONDOWN)
+		else if (SDL_GetMouseState(&x, &y) && event.type == SDL_MOUSEBUTTONDOWN)
 		{
-			std::cout << "Hello!" << std::endl;
+			std::cout << x << std::endl;
+			std::cout << (x / SPRITE_SIZE) * SPRITE_SIZE << std::endl;
+			//Symbol* circleSymbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"), "Circle", Vector2D{ x % SPRITE_SIZE,y % SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
 		}
 	}
 }
@@ -60,7 +69,7 @@ void GameManager::Render()
 {
 	//SDL_RenderClear(renderer);
 
-	DrawBoard();
+	gameBoard->DrawBoard();
 	symbolManager->Render();
 
 	SDL_RenderPresent(renderer);
@@ -82,10 +91,16 @@ void GameManager::DrawBoard()
 	if (boardIsDrawn == false)
 	{
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderDrawLine(renderer, 64, 0, 64, 192);
-		SDL_RenderDrawLine(renderer, 128, 0, 128, 192);
-		SDL_RenderDrawLine(renderer, 0, 64, 192, 64);
-		SDL_RenderDrawLine(renderer, 0, 128, 192, 128);
+
+		//first vertical line
+		SDL_RenderDrawLine(renderer, SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE * 3);
+		//second vertical line
+		SDL_RenderDrawLine(renderer, SPRITE_SIZE * 2, 0, SPRITE_SIZE * 2, SPRITE_SIZE * 3);
+		//first horizontal line
+		SDL_RenderDrawLine(renderer, 0, SPRITE_SIZE, SPRITE_SIZE * 3, SPRITE_SIZE);
+		//second horizontal line
+		SDL_RenderDrawLine(renderer, 0, SPRITE_SIZE * 2, SPRITE_SIZE * 3, SPRITE_SIZE * 2);
+
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 		boardIsDrawn = true;
 	}

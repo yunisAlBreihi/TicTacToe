@@ -139,7 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="globals.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagerBase.cpp" />
     <ClCompile Include="Managers.cpp" />
@@ -153,7 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="globals.h" />
     <ClInclude Include="IRender.h" />
     <ClInclude Include="ManagerBase.h" />
     <ClInclude Include="Managers.h" />

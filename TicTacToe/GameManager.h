@@ -3,6 +3,7 @@
 #include "ManagerBase.h"
 #include "SpriteManager.h"
 #include "SymbolManager.h"
+#include "GameBoard.h"
 
 class GameManager : public ManagerBase
 {
@@ -14,6 +15,8 @@ private:
 	//Managers
 	SpriteManager* spriteManager = nullptr;
 	SymbolManager* symbolManager = nullptr;
+
+	GameBoard* gameBoard = nullptr;
 	
 	bool gameRunning = false;
 	bool boardIsDrawn = false;
@@ -22,6 +25,7 @@ private:
 
 private:
 	void CreateWindow();
+	void DrawBoard();
 
 public:
 
@@ -32,7 +36,6 @@ public:
 	void Update();
 	void Render();
 	void Quit();
-	void DrawBoard();
 
 	bool GameRunning() { return gameRunning; }
 };
