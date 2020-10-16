@@ -27,18 +27,20 @@ GameManager::GameManager(ManagerName) : ManagerBase(name)
 	spriteManager->AddObject(circleSprite);
 	spriteManager->AddObject(crossSprite);
 
-	//Symbol* circleSymbol = new Symbol(circleSprite, "Circle", Vector2D{ 0,0 }, Vector2D{ 64,64 });
-	//Symbol* crossSymbol = new Symbol(crossSprite, "Cross", Vector2D{ 64,0 }, Vector2D{ 64,64 });
-
-	//symbolManager->AddObject(circleSymbol);
-	//symbolManager->AddObject(crossSymbol);
-
 	gameBoard = new GameBoard();
+	minimax = new Minimax();
+	currentPlayer = (SymbolType)(rand() % 2);
 }
 
 void GameManager::Start()
 {
 	gameRunning = true;
+
+	if (currentPlayer == SymbolType::Cross)
+	{
+		//RunAI();
+		std::cout << "Cross" << std::endl;
+	}
 }
 
 void GameManager::EventHandler()
@@ -53,16 +55,48 @@ void GameManager::EventHandler()
 		}
 		else if (SDL_GetMouseState(&x, &y) && event.type == SDL_MOUSEBUTTONDOWN)
 		{
-			std::cout << x << std::endl;
+			Vector2D newPos = { (x / SPRITE_SIZE) * SPRITE_SIZE ,(y / SPRITE_SIZE) * SPRITE_SIZE };
+
 			std::cout << (x / SPRITE_SIZE) * SPRITE_SIZE << std::endl;
-			//Symbol* circleSymbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"), "Circle", Vector2D{ x % SPRITE_SIZE,y % SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+
+			if (event.button.button == 1)
+			{
+				if (gameBoard->AddPosition(newPos, currentPlayer))
+				{
+					Symbol* symbol = nullptr;
+					if (currentPlayer == SymbolType::Circle)
+					{
+						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"), currentPlayer, "Circle", Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+						currentPlayer = SymbolType::Cross;
+						//RunAI();
+					}
+					else if (currentPlayer == SymbolType::Cross)
+					{
+						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"), currentPlayer, "Circle", Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+						currentPlayer = SymbolType::Circle;
+					}
+					symbolManager->AddObject(symbol);
+				}
+			}
 		}
 	}
-}
-
-void GameManager::Update()
-{
-
+	if (gameBoard->Evaluate())
+	{
+		if (currentPlayer == SymbolType::Circle)
+		{
+			std::cout << "Game Over. Cross Wins!" << std::endl;
+		}
+		else if (currentPlayer == SymbolType::Cross)
+		{
+			std::cout << "Game Over. Circle Wins!" << std::endl;
+		}
+		gameRunning = false;
+	}
+	else if(gameBoard->isMovesLeft() == false)
+	{
+		std::cout << "Game Over. It's a draw!" << std::endl;
+		gameRunning = false;
+	}
 }
 
 void GameManager::Render()
@@ -86,6 +120,12 @@ void GameManager::Quit()
 	SDL_Quit();
 }
 
+void GameManager::RunAI()
+{
+	Symbol* symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Cross"), currentPlayer, "Cross", minimax->FindBestMove(gameBoard), Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+	currentPlayer = SymbolType::Circle;
+}
+
 void GameManager::DrawBoard()
 {
 	if (boardIsDrawn == false)
@@ -104,7 +144,6 @@ void GameManager::DrawBoard()
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 		boardIsDrawn = true;
 	}
-
 }
 
 void GameManager::CreateWindow()

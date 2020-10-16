@@ -23,3 +23,16 @@ void SymbolManager::Render()
 void SymbolManager::Quit()
 {
 }
+
+Symbol* SymbolManager::GetSymbolAtPosition(Vector2D position)
+{
+	for (const auto& obj : objects)
+	{
+		if (position == obj->GetPosition())
+		{
+			return (Symbol*)obj;
+		}
+	}
+	std::cout << "Could not find symbol at the position, returning nullptr" << std::endl;
+	return nullptr;
+}

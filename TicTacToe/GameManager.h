@@ -4,6 +4,7 @@
 #include "SpriteManager.h"
 #include "SymbolManager.h"
 #include "GameBoard.h"
+#include "Minimax.h"
 
 class GameManager : public ManagerBase
 {
@@ -15,9 +16,11 @@ private:
 	//Managers
 	SpriteManager* spriteManager = nullptr;
 	SymbolManager* symbolManager = nullptr;
-
+	Minimax* minimax = nullptr;
 	GameBoard* gameBoard = nullptr;
 	
+	SymbolType currentPlayer = SymbolType::NONE;
+
 	bool gameRunning = false;
 	bool boardIsDrawn = false;
 
@@ -33,9 +36,9 @@ public:
 
 	void Start();
 	void EventHandler();
-	void Update();
 	void Render();
 	void Quit();
+	void RunAI();
 
 	bool GameRunning() { return gameRunning; }
 };

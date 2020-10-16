@@ -145,6 +145,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagerBase.cpp" />
     <ClCompile Include="Managers.cpp" />
+    <ClCompile Include="Minimax.cpp" />
+    <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="Symbol.cpp" />
@@ -161,6 +163,7 @@
     <ClInclude Include="IRender.h" />
     <ClInclude Include="ManagerBase.h" />
     <ClInclude Include="Managers.h" />
+    <ClInclude Include="Minimax.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />

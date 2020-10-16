@@ -3,6 +3,7 @@
 #include "Managers.h"
 #include "Enums.h"
 
+
 int main(int argc, char* argv[])
 {
 	GameManager* gameManager = new GameManager(ManagerName::GAMEMANAGER);
@@ -13,7 +14,6 @@ int main(int argc, char* argv[])
 	while (gameManager->GameRunning() == true)
 	{
 		gameManager->EventHandler();
-		gameManager->Update();
 		gameManager->Render();
 	}
 

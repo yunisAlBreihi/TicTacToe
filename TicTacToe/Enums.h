@@ -7,3 +7,10 @@ enum class ManagerName
 	SPRITEMANAGER,
 	SYMBOLMANAGER,
 };
+
+enum class SymbolType
+{
+	Circle,
+	Cross,
+	NONE,
+};
