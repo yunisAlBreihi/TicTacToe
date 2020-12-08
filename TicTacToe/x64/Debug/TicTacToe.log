@@ -1,2 +1,5 @@
-﻿  GameManager.cpp
+﻿  Minimax.cpp
+D:\Projects\Repos\Unity\GameProjects\TicTacToe\TicTacToe\Minimax.cpp(34,30): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Projects\Repos\Unity\GameProjects\TicTacToe\TicTacToe\Minimax.cpp(53,30): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Projects\Repos\Unity\GameProjects\TicTacToe\TicTacToe\Minimax.cpp(76,29): warning C4553: '==': result of expression not used; did you intend '='?
   TicTacToe.vcxproj -> D:\Projects\Repos\Unity\GameProjects\TicTacToe\TicTacToe\x64\Debug\TicTacToe.exe

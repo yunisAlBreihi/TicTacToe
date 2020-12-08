@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include <iostream>
+#include <time.h>
 #include <SDL_image.h>
 #include "Managers.h"
 #include "Sprite.h"
@@ -10,6 +11,8 @@ using namespace globals;
 
 GameManager::GameManager(ManagerName) : ManagerBase(name)
 {
+	srand(time(NULL));
+
 	CreateWindow();
 	Managers::GetInstance()->SetRenderer(renderer);
 
@@ -30,6 +33,7 @@ GameManager::GameManager(ManagerName) : ManagerBase(name)
 	gameBoard = new GameBoard();
 	minimax = new Minimax();
 	currentPlayer = (SymbolType)(rand() % 2);
+	std::cout << (int)currentPlayer << std::endl;
 }
 
 void GameManager::Start()
@@ -38,7 +42,7 @@ void GameManager::Start()
 
 	if (currentPlayer == SymbolType::Cross)
 	{
-		//RunAI();
+		RunAI();
 		std::cout << "Cross" << std::endl;
 	}
 }
@@ -68,11 +72,11 @@ void GameManager::EventHandler()
 					{
 						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"), currentPlayer, "Circle", Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
 						currentPlayer = SymbolType::Cross;
-						//RunAI();
+						RunAI();
 					}
 					else if (currentPlayer == SymbolType::Cross)
 					{
-						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"), currentPlayer, "Circle", Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Cross"), currentPlayer, "Cross", Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
 						currentPlayer = SymbolType::Circle;
 					}
 					symbolManager->AddObject(symbol);

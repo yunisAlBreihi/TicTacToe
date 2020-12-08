@@ -40,7 +40,7 @@ void GameBoard::Quit()
 
 std::vector<Position> GameBoard::GetPositions()
 {
-	return std::vector<Position>();
+	return positions;
 }
 
 bool GameBoard::AddPosition(Vector2D position, SymbolType symbolType)
