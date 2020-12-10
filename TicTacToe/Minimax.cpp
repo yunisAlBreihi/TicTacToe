@@ -4,10 +4,10 @@
 
 using namespace globals;
 
-int Minimax::GetMinimax(GameBoard* gameboard, int depth, bool isMax)
+int Minimax::GetMinimax(GameBoard* gameBoard, int depth, bool isMax)
 {
-	int score = gameboard->Evaluate();
-	std::vector<Position> positions = gameboard->GetPositions();
+	int score = gameBoard->Evaluate();
+	std::vector<Position> positions = gameBoard->GetPositions();
 
 	if (score == 10)
 	{
@@ -17,7 +17,7 @@ int Minimax::GetMinimax(GameBoard* gameboard, int depth, bool isMax)
 	{
 		return score;
 	}
-	if (gameboard->isMovesLeft() == false)
+	if (gameBoard->isMovesLeft() == false)
 	{
 		return 0;
 	}
@@ -31,9 +31,8 @@ int Minimax::GetMinimax(GameBoard* gameboard, int depth, bool isMax)
 			{
 				if (positions[j + i].symbol == SymbolType::NONE)
 				{
-					positions[j + i].symbol == SymbolType::Circle;
-					best = std::max(best, GetMinimax(gameboard, depth + 1, !isMax));
-
+					positions[j + i].symbol = SymbolType::Circle;
+					best = std::max(best, GetMinimax(gameBoard, depth + 1, !isMax));
 					positions[j + i].symbol = SymbolType::NONE;
 				}
 			}
@@ -50,8 +49,8 @@ int Minimax::GetMinimax(GameBoard* gameboard, int depth, bool isMax)
 			{
 				if (positions[j + i].symbol == SymbolType::NONE)
 				{
-					positions[j + i].symbol == SymbolType::Circle;
-					best = std::min(best, GetMinimax(gameboard, depth + 1, !isMax));
+					positions[j + i].symbol = SymbolType::Cross;
+					best = std::min(best, GetMinimax(gameBoard, depth + 1, !isMax));
 					positions[j + i].symbol = SymbolType::NONE;
 				}
 			}
@@ -73,7 +72,7 @@ Vector2D Minimax::FindBestMove(GameBoard* gameBoard)
 		{
 			if (positions[j + i].symbol == SymbolType::NONE)
 			{
-				positions[j + i].symbol == SymbolType::Circle;
+				positions[j + i].symbol = SymbolType::Circle;
 				int moveVal = GetMinimax(gameBoard, 0, false);
 				positions[j + i].symbol = SymbolType::NONE;
 

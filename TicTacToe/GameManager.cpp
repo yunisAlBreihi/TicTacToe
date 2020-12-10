@@ -70,16 +70,21 @@ void GameManager::EventHandler()
 					Symbol* symbol = nullptr;
 					if (currentPlayer == SymbolType::Circle)
 					{
-						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"), currentPlayer, "Circle", Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"),
+								            currentPlayer, "Circle",
+							                Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE },
+							                Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
 						currentPlayer = SymbolType::Cross;
-						RunAI();
+						symbolManager->AddObject(symbol);
 					}
 					else if (currentPlayer == SymbolType::Cross)
 					{
-						symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Cross"), currentPlayer, "Cross", Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE }, Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
-						currentPlayer = SymbolType::Circle;
+						//symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Cross"),
+						//	                currentPlayer, "Cross", 
+						//	                Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE },
+						//	                Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+						RunAI();
 					}
-					symbolManager->AddObject(symbol);
 				}
 			}
 		}
@@ -126,7 +131,11 @@ void GameManager::Quit()
 
 void GameManager::RunAI()
 {
-	Symbol* symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Cross"), currentPlayer, "Cross", minimax->FindBestMove(gameBoard), Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+	Symbol* symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Cross"), 
+								currentPlayer, "Cross",
+								minimax->FindBestMove(gameBoard),
+								Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+	symbolManager->AddObject(symbol);
 	currentPlayer = SymbolType::Circle;
 }
 
