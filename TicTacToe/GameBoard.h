@@ -14,10 +14,12 @@ struct Position
 class GameBoard : public IRender
 {
 private:
-	std::vector<Position> positions;
 	SDL_Renderer* renderer = nullptr;
 	SymbolManager* symbolManager = nullptr;
 	bool boardIsDrawn = false;
+
+public:
+	std::vector<Position> positions;
 
 public:
 	GameBoard();

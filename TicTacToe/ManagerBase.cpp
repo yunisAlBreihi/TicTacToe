@@ -25,7 +25,6 @@ ObjectBase* ManagerBase::GetObjectByName(std::string name)
 		{
 			return obj;
 		}
-
 	}
 	return nullptr;
 }
