@@ -77,10 +77,10 @@ void GameManager::EventHandler()
 				}
 			}
 		}
-		else if (currentPlayer == SymbolType::Cross)
-		{
-			RunAI();
-		}
+	}
+	else if (currentPlayer == SymbolType::Cross)
+	{
+		RunAI();
 	}
 
 	if (gameBoard->Evaluate())

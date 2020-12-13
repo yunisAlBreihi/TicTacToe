@@ -1,2 +1,4 @@
 D:\Projects\Repos\Unity\GameProjects\TicTacToe\TicTacToe\x64\Debug\TicTacToe.exe
 D:\Projects\Repos\Unity\GameProjects\TicTacToe\TicTacToe\x64\Debug\TicTacToe.pdb
+D:\Repos\cpp\TicTacToe\TicTacToe\x64\Debug\TicTacToe.exe
+D:\Repos\cpp\TicTacToe\TicTacToe\x64\Debug\TicTacToe.pdb
