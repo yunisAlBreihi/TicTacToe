@@ -57,7 +57,7 @@ void GameManager::EventHandler()
 		{
 			gameRunning = false;
 		}
-		else if ( currentPlayer == SymbolType::Circle && SDL_GetMouseState(&x, &y) && event.type == SDL_MOUSEBUTTONDOWN)
+		else if ( currentPlayer == SymbolType::Cross && SDL_GetMouseState(&x, &y) && event.type == SDL_MOUSEBUTTONDOWN)
 		{
 			Vector2D newPos = { (x / SPRITE_SIZE) * SPRITE_SIZE ,(y / SPRITE_SIZE) * SPRITE_SIZE };
 
@@ -68,22 +68,35 @@ void GameManager::EventHandler()
 				if (gameBoard->AddPosition(newPos, currentPlayer))
 				{
 					Symbol* symbol = nullptr;
-					symbol = new Symbol(static_cast<Sprite*>(spriteManager->GetObjectByName("Circle")),
-						currentPlayer, "Circle",
+					symbol = new Symbol(static_cast<Sprite*>(spriteManager->GetObjectByName("Cross")),
+						currentPlayer, "Cross",
 						Vector2D{ (x / SPRITE_SIZE) * SPRITE_SIZE,(y / SPRITE_SIZE) * SPRITE_SIZE },
 						Vector2D{ SPRITE_SIZE, SPRITE_SIZE });
-					currentPlayer = SymbolType::Cross;
 					symbolManager->AddObject(symbol);
+					currentPlayer = SymbolType::Circle;
 				}
 			}
 		}
 	}
-	else if (currentPlayer == SymbolType::Cross)
+	else if (currentPlayer == SymbolType::Circle)
 	{
 		RunAI();
 	}
+}
 
-	if (gameBoard->Evaluate())
+void GameManager::Render()
+{
+	//SDL_RenderClear(renderer);
+
+	gameBoard->DrawBoard();
+	symbolManager->Render();
+
+	SDL_RenderPresent(renderer);
+}
+
+void GameManager::CheckWin()
+{
+	if (gameBoard->Evaluate() != 0)
 	{
 		if (currentPlayer == SymbolType::Circle)
 		{
@@ -102,16 +115,6 @@ void GameManager::EventHandler()
 	}
 }
 
-void GameManager::Render()
-{
-	//SDL_RenderClear(renderer);
-
-	gameBoard->DrawBoard();
-	symbolManager->Render();
-
-	SDL_RenderPresent(renderer);
-}
-
 void GameManager::Quit()
 {
 	SDL_DestroyRenderer(renderer);
@@ -126,13 +129,15 @@ void GameManager::Quit()
 void GameManager::RunAI()
 {
 	Vector2D newPos = minimax->FindBestMove(gameBoard);
-	Symbol* symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Cross"),
-		currentPlayer, "Cross",
-		newPos,
-		Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
-	symbolManager->AddObject(symbol);
-	gameBoard->AddPosition(newPos, currentPlayer);
-	currentPlayer = SymbolType::Circle;
+	if (gameBoard->AddPosition(newPos, currentPlayer))
+	{
+		Symbol* symbol = new Symbol((Sprite*)spriteManager->GetObjectByName("Circle"),
+			currentPlayer, "Circle",
+			newPos,
+			Vector2D{ SPRITE_SIZE,SPRITE_SIZE });
+		symbolManager->AddObject(symbol);
+		currentPlayer = SymbolType::Cross;
+	}
 }
 
 void GameManager::DrawBoard()

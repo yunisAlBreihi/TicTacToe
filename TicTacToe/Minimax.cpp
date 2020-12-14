@@ -53,7 +53,6 @@ int Minimax::GetMinimax(GameBoard* gameBoard, int depth, bool isMax)
 		}
 		return best;
 	}
-	return 0;
 }
 
 Vector2D Minimax::FindBestMove(GameBoard* gameBoard)
@@ -73,8 +72,8 @@ Vector2D Minimax::FindBestMove(GameBoard* gameBoard)
 
 				if (moveVal > bestVal)
 				{
-					bestPosition.x = i * SPRITE_SIZE;
-					bestPosition.y = j * SPRITE_SIZE;
+					bestPosition.x = j * SPRITE_SIZE;
+					bestPosition.y = i * SPRITE_SIZE;
 					bestVal = moveVal;
 				}
 			}

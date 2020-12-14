@@ -15,6 +15,7 @@ int main(int argc, char* argv[])
 	{
 		gameManager->EventHandler();
 		gameManager->Render();
+		gameManager->CheckWin();
 	}
 
 	gameManager->Quit();

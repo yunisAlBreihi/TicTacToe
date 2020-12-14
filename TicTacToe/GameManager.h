@@ -37,6 +37,7 @@ public:
 	void Start();
 	void EventHandler();
 	void Render();
+	void CheckWin();
 	void Quit();
 	void RunAI();
 

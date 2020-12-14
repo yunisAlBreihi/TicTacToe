@@ -77,7 +77,7 @@ bool GameBoard::isMovesLeft()
 	{
 		for (size_t j = 0; j < 3; j++)
 		{
-			if (positions[i + (j *3)].symbol == SymbolType::NONE)
+			if (positions[i + (j * 3)].symbol == SymbolType::NONE)
 			{
 				return true;
 			}
@@ -91,45 +91,78 @@ int GameBoard::Evaluate()
 	//Columns
 	for (int col = 0; col < 3; col++)
 	{
-		if (positions[col + 0].symbol == positions[col + 3].symbol &&
-			positions[col + 3].symbol == positions[col + 6].symbol)
+		if (positions[col + 0].symbol != SymbolType::NONE &&
+			positions[col + 3].symbol != SymbolType::NONE &&
+			positions[col + 6].symbol != SymbolType::NONE)
 		{
-			if (positions[col + 0].symbol == SymbolType::Circle)
-				return 10;
-			else if (positions[col + 0].symbol == SymbolType::Cross)
-				return -10;
+			if (positions[col + 0].symbol == positions[col + 3].symbol &&
+				positions[col + 3].symbol == positions[col + 6].symbol)
+			{
+				if (positions[col + 0].symbol == SymbolType::Circle)
+				{
+					return 10;
+				}
+				else if (positions[col + 0].symbol == SymbolType::Cross)
+				{
+					return -10;
+				}
+			}
 		}
 	}
 
 	//Rows
 	for (int row = 0; row < 3; row++)
 	{
-		if (positions[(row * 3) + 0].symbol == positions[(row * 3) + 1].symbol &&
-			positions[(row * 3) + 1].symbol == positions[(row * 3) + 2].symbol)
+		if (positions[(row * 3) + 0].symbol != SymbolType::NONE &&
+			positions[(row * 3) + 1].symbol != SymbolType::NONE &&
+			positions[(row * 3) + 2].symbol != SymbolType::NONE)
 		{
-			if (positions[row + 0].symbol == SymbolType::Circle)
-				return 10;
-			else if (positions[row + 0].symbol == SymbolType::Cross)
-				return -10;
+			if (positions[(row * 3) + 0].symbol == positions[(row * 3) + 1].symbol &&
+				positions[(row * 3) + 1].symbol == positions[(row * 3) + 2].symbol)
+			{
+				if (positions[(row * 3) + 0].symbol == SymbolType::Circle)
+				{
+					return 10;
+
+				}
+				else if (positions[(row * 3) + 0].symbol == SymbolType::Cross)
+				{
+					return -10;
+				}
+			}
 		}
 	}
 
 	//Diagonals
-	if (positions[0].symbol == positions[4].symbol &&
-		positions[4].symbol == positions[8].symbol)
+	if (positions[0].symbol != SymbolType::NONE &&
+		positions[4].symbol != SymbolType::NONE &&
+		positions[8].symbol != SymbolType::NONE)
 	{
-		if (positions[0].symbol == SymbolType::Circle)
-			return 10;
-		else if (positions[0].symbol == SymbolType::Cross)
-			return -10;
+		if (positions[0].symbol == positions[4].symbol &&
+			positions[4].symbol == positions[8].symbol)
+		{
+			if (positions[0].symbol == SymbolType::Circle)
+			{
+				return 10;
+			}
+			else if (positions[0].symbol == SymbolType::Cross)
+			{
+				return -10;
+			}
+		}
 	}
-	if (positions[2].symbol == positions[4].symbol &&
-		positions[4].symbol == positions[6].symbol)
+	if (positions[2].symbol != SymbolType::NONE &&
+		positions[4].symbol != SymbolType::NONE &&
+		positions[6].symbol != SymbolType::NONE)
 	{
-		if (positions[2].symbol == SymbolType::Circle)
-			return 10;
-		else if (positions[2].symbol == SymbolType::Cross)
-			return -10;
+		if (positions[2].symbol == positions[4].symbol &&
+			positions[4].symbol == positions[6].symbol)
+		{
+			if (positions[2].symbol == SymbolType::Circle)
+				return 10;
+			else if (positions[2].symbol == SymbolType::Cross)
+				return -10;
+		}
 	}
 
 	return 0;
