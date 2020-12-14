@@ -39,12 +39,6 @@ GameManager::GameManager(ManagerName) : ManagerBase(name)
 void GameManager::Start()
 {
 	gameRunning = true;
-
-	//if (currentPlayer == SymbolType::Cross)
-	//{
-	//	RunAI();
-	//	std::cout << "Cross" << std::endl;
-	//}
 }
 
 void GameManager::EventHandler()
@@ -86,8 +80,6 @@ void GameManager::EventHandler()
 
 void GameManager::Render()
 {
-	//SDL_RenderClear(renderer);
-
 	gameBoard->DrawBoard();
 	symbolManager->Render();
 

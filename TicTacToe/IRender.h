@@ -6,7 +6,7 @@ protected:
 	bool renderable = false;
 
 public:
-	virtual void Start() = 0;
-	virtual void Render() = 0;
-	virtual void Quit() = 0;
+	virtual void Start() {};
+	virtual void Render() {};
+	virtual void Quit() {};
 };

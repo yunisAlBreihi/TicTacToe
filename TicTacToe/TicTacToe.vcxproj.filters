@@ -45,9 +45,6 @@
     <ClCompile Include="ObjectBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="globals.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Minimax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

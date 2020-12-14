@@ -8,10 +8,6 @@ Symbol::Symbol(Sprite* sprite, SymbolType symbolType, std::string name, Vector2D
 	renderable = true;
 }
 
-void Symbol::Start()
-{
-}
-
 void Symbol::Render()
 {
 	if (renderable == true)
@@ -19,8 +15,4 @@ void Symbol::Render()
 		SDL_RenderCopy(Managers::GetInstance()->GetRenderer(), sprite->GetTexture(), NULL, &rect);
 		renderable = false;
 	}
-}
-
-void Symbol::Quit()
-{
 }

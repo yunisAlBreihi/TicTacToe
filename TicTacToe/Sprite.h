@@ -16,9 +16,5 @@ public:
 	Sprite(const char* name, const char* filePath);
 
 	SDL_Texture* GetTexture() { return texture; }
-
-	void Start() override;
-	void Render() override;
-	void Quit() override;
 };
 

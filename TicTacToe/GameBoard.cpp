@@ -21,11 +21,6 @@ GameBoard::GameBoard()
 	}
 }
 
-void GameBoard::Start()
-{
-
-}
-
 void GameBoard::Render()
 {
 	if (renderable == true)
@@ -33,9 +28,6 @@ void GameBoard::Render()
 		DrawBoard();
 		renderable = false;
 	}
-}
-void GameBoard::Quit()
-{
 }
 
 std::vector<Position> GameBoard::GetPositions()

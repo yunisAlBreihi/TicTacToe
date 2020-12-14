@@ -24,16 +24,12 @@ public:
 public:
 	GameBoard();
 
-	void Start() override;
 	void Render() override;
-	void Quit() override;
 
 	std::vector<Position> GetPositions();
 	void SetPositions(std::vector<Position> newPositions);
 	bool AddPosition(Vector2D position, SymbolType symbolType);
-	Symbol* GetSymbolAtPosition(Vector2D position);
 	bool isMovesLeft();
-	int OccupiedPositions();
 	int Evaluate();
 	void DrawBoard();
 };

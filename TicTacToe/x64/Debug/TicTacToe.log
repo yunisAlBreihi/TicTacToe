@@ -1,3 +1,15 @@
-﻿  GameManager.cpp
+﻿  GameBoard.cpp
+  GameManager.cpp
 D:\Repos\cpp\TicTacToe\TicTacToe\GameManager.cpp(14,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  ManagerBase.cpp
+  Managers.cpp
+  Minimax.cpp
+  ObjectBase.cpp
+  Sprite.cpp
+  SpriteManager.cpp
+  Symbol.cpp
+  SymbolManager.cpp
+  main.cpp
+  Generating Code...
+D:\Repos\cpp\TicTacToe\TicTacToe\GameBoard.cpp(64): warning C4715: 'GameBoard::AddPosition': not all control paths return a value
   TicTacToe.vcxproj -> D:\Repos\cpp\TicTacToe\TicTacToe\x64\Debug\TicTacToe.exe

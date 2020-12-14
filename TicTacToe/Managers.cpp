@@ -4,7 +4,6 @@ Managers* Managers::instance = nullptr;
 
 Managers::Managers() 
 {
-
 }
 
 Managers* Managers::GetInstance()

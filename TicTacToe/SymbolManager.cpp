@@ -5,10 +5,6 @@ SymbolManager::SymbolManager(ManagerName name) : ManagerBase(name)
 	renderable = true;
 }
 
-void SymbolManager::Start()
-{
-}
-
 void SymbolManager::Render()
 {
 	if (renderable)
@@ -18,10 +14,6 @@ void SymbolManager::Render()
 			symbol->Render();
 		}
 	}
-}
-
-void SymbolManager::Quit()
-{
 }
 
 Symbol* SymbolManager::GetSymbolAtPosition(Vector2D position)

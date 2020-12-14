@@ -16,9 +16,7 @@ private:
 public:
 	Symbol(Sprite* sprite, SymbolType symbolType, std::string name , Vector2D position, Vector2D scale);
 
-	void Start() override;
 	void Render() override;
-	void Quit() override;
 
 	SymbolType GetSymbolType() { return symbolType; }
 };
